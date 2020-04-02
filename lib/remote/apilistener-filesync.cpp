@@ -549,15 +549,16 @@ void ApiListener::HandleConfigUpdate(const MessageOrigin::Ptr& origin, const Dic
 void ApiListener::TryActivateZonesStageCallback(const ProcessResult& pr,
 	const std::vector<String>& relativePaths)
 {
+	String apiDir = GetApiDir();
 	String apiZonesDir = GetApiZonesDir();
 	String apiZonesStageDir = GetApiZonesStageDir();
 
-	String logFile = apiZonesStageDir + "/startup.log";
+	String logFile = apiDir + "/startup.log";
 	std::ofstream fpLog(logFile.CStr(), std::ofstream::out | std::ostream::binary | std::ostream::trunc);
 	fpLog << pr.Output;
 	fpLog.close();
 
-	String statusFile = apiZonesStageDir + "/status";
+	String statusFile = apiDir + "/status";
 	std::ofstream fpStatus(statusFile.CStr(), std::ofstream::out | std::ostream::binary | std::ostream::trunc);
 	fpStatus << pr.ExitStatus;
 	fpStatus.close();
